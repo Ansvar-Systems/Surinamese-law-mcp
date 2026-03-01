@@ -1,17 +1,17 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
-  "name": "eu.ansvar/salvadoran-law-mcp",
-  "description": "El Salvador legislation via MCP -- full-text search across statutes and provisions",
+  "name": "eu.ansvar/surinamese-law-mcp",
+  "description": "Suriname legislation via MCP -- full-text search across statutes and provisions",
   "repository": {
-    "url": "https://github.com/Ansvar-Systems/Salvadoran-law-mcp",
+    "url": "https://github.com/Ansvar-Systems/Surinamese-law-mcp",
     "source": "github"
   },
   "homepage": "https://ansvar.eu",
   "version": "1.0.0",
   "license": "Apache-2.0",
   "keywords": [
-    "salvadoran-law",
-    "salvadoran",
+    "surinamese-law",
+    "surinamese",
     "legal",
     "compliance",
     "mcp"
@@ -19,7 +19,7 @@
   "packages": [
     {
       "registryType": "npm",
-      "identifier": "@ansvar/salvadoran-law-mcp",
+      "identifier": "@ansvar/surinamese-law-mcp",
       "version": "1.0.0",
       "transport": {
         "type": "stdio"
@@ -27,11 +27,11 @@
     },
     {
       "registryType": "npm",
-      "identifier": "@ansvar/salvadoran-law-mcp",
+      "identifier": "@ansvar/surinamese-law-mcp",
       "version": "1.0.0",
       "transport": {
         "type": "streamable-http",
-        "url": "https://salvadoran-law-mcp.vercel.app/mcp"
+        "url": "https://surinamese-law-mcp.vercel.app/mcp"
       }
     }
   ]
