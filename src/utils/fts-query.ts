@@ -1,131 +1,106 @@
 /**
  * FTS5 query helpers for Surinamese Law MCP.
  *
- * Handles query sanitization, boolean operator passthrough, stemming,
- * and 6-tier variant generation for SQLite FTS5.
+ * Handles query sanitization and variant generation for SQLite FTS5.
  */
 
-/** FTS5 boolean operators that should pass through to the engine. */
-const BOOLEAN_OPERATORS = new Set(['AND', 'OR', 'NOT']);
+const FTS5_BOOLEAN_OPS = /\b(AND|OR|NOT)\b/;
 
 /**
- * Common English suffixes for naive stemming.
- * Ordered longest-first so we strip the most specific suffix.
+ * Detect whether input contains FTS5 boolean operators.
  */
-const STEM_SUFFIXES = [
-  'ies', 'ing', 'ers', 'tion', 'ment', 'ness', 'able', 'ible',
-  'ous', 'ive', 'ed', 'es', 'er', 'ly', 's',
-];
+export function hasBooleanOperators(input: string): boolean {
+  return FTS5_BOOLEAN_OPS.test(input);
+}
 
 /**
- * Naive English stemmer: strips a common suffix and returns `stem*`.
- * Returns null if the word is too short (<5 chars) or no suffix matched.
+ * Sanitize user input for safe FTS5 queries.
+ * Preserves boolean operators (AND, OR, NOT) when detected.
  */
-export function stemWord(word: string): string | null {
+export function sanitizeFtsInput(input: string): string {
+  if (hasBooleanOperators(input)) {
+    // Preserve boolean structure: only strip dangerous chars, keep quotes and parens
+    return input.replace(/[{}[\]^~*:]/g, ' ').replace(/\s+/g, ' ').trim();
+  }
+  // Preserve trailing * on words (FTS5 prefix search) but strip other special chars
+  return input
+    .replace(/['"(){}[\]^~:]/g, ' ')
+    .replace(/\*(?!\s|$)/g, ' ')    // strip * unless at end of word
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+/**
+ * Truncate common English suffixes for stemming fallback.
+ * Returns the stem string (without wildcard), or null if no stemming possible.
+ */
+function stemWord(word: string): string | null {
   if (word.length < 5) return null;
-
   const lower = word.toLowerCase();
-  for (const suffix of STEM_SUFFIXES) {
-    if (lower.endsWith(suffix)) {
-      const stem = lower.slice(0, -suffix.length);
-      if (stem.length >= 3) {
-        return `${stem}*`;
-      }
+  for (const suffix of [
+    'ies', 'ing', 'ers', 'tion', 'ment', 'ness',
+    'able', 'ible', 'ous', 'ive', 'ed', 'es', 'er', 'ly', 's',
+  ]) {
+    if (lower.endsWith(suffix) && lower.length - suffix.length >= 3) {
+      return lower.slice(0, -suffix.length);
     }
   }
   return null;
 }
 
 /**
- * Check whether the input contains FTS5 boolean operators (AND, OR, NOT).
- */
-function containsBooleanOperators(tokens: string[]): boolean {
-  return tokens.some(t => BOOLEAN_OPERATORS.has(t));
-}
-
-/**
- * Sanitize user input for safe FTS5 queries.
- *
- * Removes characters that have special meaning in FTS5 syntax while
- * preserving AND, OR, NOT as boolean operators when they appear
- * between search terms.
- */
-export function sanitizeFtsInput(input: string): string {
-  const tokens = input.split(/\s+/).filter(t => t.length > 0);
-  if (tokens.length === 0) return '';
-
-  if (containsBooleanOperators(tokens)) {
-    // Boolean mode: narrow strip — preserve quotes and parens for phrase grouping
-    return input.replace(/[{}[\]^~*:]/g, ' ').replace(/\s+/g, ' ').trim();
-  }
-
-  // Standard mode: aggressive strip
-  const cleaned = input
-    .replace(/['"(){}[\]^~*:@#$%&+=<>|\\/.!?,;]/g, ' ')
-    .replace(/\s+/g, ' ')
-    .trim();
-
-  const cleanTokens = cleaned.split(/\s+/).filter(t => t.length > 0 && !BOOLEAN_OPERATORS.has(t));
-  return cleanTokens.join(' ');
-}
-
-/**
  * Build FTS5 query variants for a search term.
+ * Returns variants in order of specificity (most specific first):
+ * 1. Exact phrase match
+ * 2. All terms required (AND)
+ * 3. Prefix AND (last term gets prefix wildcard)
+ * 4. Stemmed prefix (suffix-truncated + wildcard)
+ * 5. Any term matches (OR) — broad fallback
  *
- * When boolean operators (AND/OR/NOT) are detected, returns only the
- * sanitized input as a single variant — let FTS5 handle the boolean logic.
- *
- * Otherwise returns variants in specificity order (most specific first):
- * 1. Exact phrase match — `"term1 term2 term3"`
- * 2. AND — `term1 AND term2 AND term3`
- * 3. Prefix AND — `term1 AND term2 AND term3*`
- * 4. Stemmed prefix — `stem1* AND stem2* AND stem3*`
- * 5. OR — `term1 OR term2 OR term3`
+ * When boolean operators are detected, passes query through as-is.
  */
 export function buildFtsQueryVariants(sanitized: string): string[] {
   if (!sanitized || sanitized.trim().length === 0) {
     return [];
   }
 
-  const tokens = sanitized.split(/\s+/).filter(t => t.length > 0);
-  if (tokens.length === 0) return [];
-
-  // Boolean passthrough: return as single variant for FTS5 to handle
-  if (containsBooleanOperators(tokens)) {
+  // Boolean passthrough — user knows what they want
+  if (hasBooleanOperators(sanitized)) {
     return [sanitized];
   }
 
+  const terms = sanitized.split(/\s+/).filter(t => t.length > 0);
+  if (terms.length === 0) return [];
+
   const variants: string[] = [];
 
-  // Tier 1: Exact phrase (multi-word only)
-  if (tokens.length > 1) {
-    variants.push(`"${tokens.join(' ')}"`);
+  if (terms.length > 1) {
+    // Exact phrase
+    variants.push(`"${terms.join(' ')}"`);
+    // AND query
+    variants.push(terms.join(' AND '));
+    // Prefix AND on last term
+    variants.push([...terms.slice(0, -1), `${terms[terms.length - 1]}*`].join(' AND '));
+  } else {
+    // Single term
+    variants.push(terms[0]);
+    if (terms[0].length >= 3) {
+      variants.push(`${terms[0]}*`);
+    }
   }
 
-  // Tier 2: AND query
-  variants.push(tokens.join(' AND '));
-
-  // Tier 3: Prefix AND (wildcard on last term, or single term)
-  const firstToken = tokens[0];
-  const lastToken = tokens[tokens.length - 1];
-  if (tokens.length === 1 && firstToken && firstToken.length >= 3) {
-    variants.push(`${firstToken}*`);
-  } else if (tokens.length > 1 && lastToken) {
-    const prefixTerms = [...tokens.slice(0, -1), `${lastToken}*`];
-    variants.push(prefixTerms.join(' AND '));
+  // Stemmed variant — truncate suffixes + wildcard
+  const stemmedTerms = terms.map(t => {
+    const stem = stemWord(t);
+    return stem ? `${stem}*` : t;
+  });
+  if (stemmedTerms.some((s, i) => s !== terms[i])) {
+    variants.push(stemmedTerms.join(' AND '));
   }
 
-  // Tier 4: Stemmed prefix (all terms stemmed with wildcards)
-  const stemmed = tokens.map(t => stemWord(t) ?? `${t}*`);
-  const stemmedQuery = stemmed.join(' AND ');
-  // Only add if different from tier 3
-  if (!variants.includes(stemmedQuery)) {
-    variants.push(stemmedQuery);
-  }
-
-  // Tier 5: OR query (broadest FTS5 variant)
-  if (tokens.length > 1) {
-    variants.push(tokens.join(' OR '));
+  // OR fallback — any term matches (broadest)
+  if (terms.length > 1) {
+    variants.push(terms.join(' OR '));
   }
 
   return variants;
@@ -133,41 +108,11 @@ export function buildFtsQueryVariants(sanitized: string): string[] {
 
 /**
  * Build a SQL LIKE pattern from search terms.
- *
- * Produces `%term1%term2%...%` for use as a last-resort fallback
- * when all FTS5 variants return zero results.
+ * Used as a final fallback when FTS5 returns no results.
+ * Example: "penalty offence" -> "%penalty%offence%"
  */
-// ---------------------------------------------------------------------------
-// Legacy compatibility — some repos call buildFtsQueryVariants expecting
-// { primary: string; fallback?: string } instead of string[].
-// The legacy wrapper delegates to the new tiered logic but returns the old shape.
-// ---------------------------------------------------------------------------
-
-export interface FtsQueryVariants {
-  primary: string;
-  fallback?: string;
-  use_like?: boolean;
-}
-
-export function buildFtsQueryVariantsLegacy(query: string): FtsQueryVariants {
-  const sanitized = sanitizeFtsInput(query);
-  const variants = buildFtsQueryVariants(sanitized);
-  if (variants.length === 0) return { primary: query, use_like: true };
-  return {
-    primary: variants[0] ?? query,
-    fallback: variants.length > 1 ? variants[variants.length - 1] : undefined,
-    use_like: true,
-  };
-}
-
-export function buildLikePattern(input: string): string {
-  const tokens = input
-    .replace(/['"(){}[\]^~*:@#$%&+=<>|\\/.!?,;]/g, ' ')
-    .replace(/\s+/g, ' ')
-    .trim()
-    .split(/\s+/)
-    .filter(t => t.length > 0 && !BOOLEAN_OPERATORS.has(t));
-
-  if (tokens.length === 0) return '%';
-  return `%${tokens.join('%')}%`;
+export function buildLikePattern(query: string): string {
+  const terms = query.trim().split(/\s+/).filter(t => t.length > 0);
+  if (terms.length === 0) return '%';
+  return `%${terms.join('%')}%`;
 }
