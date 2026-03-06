@@ -1,36 +1,181 @@
-# Privacy Policy
+# Privacy & Client Confidentiality
 
-## Data Collection
+**IMPORTANT READING FOR LEGAL PROFESSIONALS**
 
-**This MCP server collects no data.**
+This document addresses privacy and confidentiality considerations when using this Tool, with particular attention to professional obligations under Surinamese bar association rules.
 
-- No user data is stored
-- No telemetry is sent
-- No tracking or analytics
-- No cookies or session data
-- No network calls at runtime
+---
 
-## Architecture
+## Executive Summary
 
-This MCP server is a **read-only knowledge base**. It serves pre-built data from a local SQLite database. No user queries, inputs, or interactions are logged or persisted by the MCP server itself.
+**Key Risks:**
+- Queries through Claude API flow via Anthropic cloud infrastructure
+- Query content may reveal client matters and privileged information
+- Surinamese professional conduct rules (Surinaamse Orde van Advocaten — SOA) require strict client confidentiality and data processing controls
 
-## Data Sources
+**Safe Use Options:**
+1. **General Legal Research**: Use Tool for non-client-specific queries
+2. **Local npm Package**: Install `@ansvar/surinamese-law-mcp` locally — database queries stay on your machine
+3. **Remote Endpoint**: Vercel Streamable HTTP endpoint — queries transit Vercel infrastructure
+4. **On-Premise Deployment**: Self-host with local LLM for privileged matters
 
-All data in this knowledge base is sourced from **publicly available** Surinamese government and legislative publications.
+---
 
-## Host Environment
+## Data Flows and Infrastructure
 
-When this MCP server runs inside a host application (Claude Desktop, Cursor, VS Code, etc.), the **host application's** privacy policy governs how your interactions are processed. This MCP server itself has no visibility into or control over the host's data practices.
+### MCP (Model Context Protocol) Architecture
 
-## npm Package
+This Tool uses the **Model Context Protocol (MCP)** to communicate with AI clients:
 
-The published npm package contains only:
-- Static SQLite database (legislation text)
-- Server code (TypeScript/JavaScript)
-- Configuration files
+```
+User Query -> MCP Client (Claude Desktop/Cursor/API) -> Anthropic Cloud -> MCP Server -> Database
+```
 
-No user data is included in or collected by the package.
+### Deployment Options
 
-## Contact
+#### 1. Local npm Package (Most Private)
 
-For privacy questions about this MCP server: [Ansvar Systems](https://ansvar.eu)
+```bash
+npx @ansvar/surinamese-law-mcp
+```
+
+- Database is local SQLite file on your machine
+- No data transmitted to external servers (except to AI client for LLM processing)
+- Full control over data at rest
+
+#### 2. Remote Endpoint (Vercel)
+
+```
+Endpoint: https://surinamese-law-mcp.vercel.app/mcp
+```
+
+- Queries transit Vercel infrastructure
+- Tool responses return through the same path
+- Subject to Vercel's privacy policy
+
+### What Gets Transmitted
+
+When you use this Tool through an AI client:
+
+- **Query Text**: Your search queries and tool parameters
+- **Tool Responses**: Statutory text (wetteksten), provision content, search results
+- **Metadata**: Timestamps, request identifiers
+
+**What Does NOT Get Transmitted:**
+- Files on your computer
+- Your full conversation history (depends on AI client configuration)
+
+---
+
+## Professional Obligations (Suriname)
+
+### Surinaamse Orde van Advocaten (SOA)
+
+Advocaten (attorneys) in Suriname are regulated by the **Surinaamse Orde van Advocaten (SOA)** under the Advocatenwet. Key obligations when using AI tools:
+
+#### Geheimhoudingsplicht (Duty of Confidentiality)
+
+- All client communications are confidential under Surinamese professional conduct rules
+- Client identity may itself be confidential in sensitive matters
+- Case strategy and legal analysis are protected
+- Information that could identify clients or matters must be safeguarded
+- Breach of professional secrecy may result in disciplinary proceedings (tuchtprocedure) before the SOA
+
+### Data Protection in Suriname
+
+Suriname has adopted data protection legislation based on internationally recognized principles. When handling client personal data through AI tools:
+
+- You bear responsibility for ensuring client data is not exposed to unauthorized third parties
+- International data transfers (e.g., to US-based Anthropic) should be evaluated for compliance with applicable data protection requirements
+- Consult the SOA and relevant Surinamese authorities for current data protection obligations
+
+---
+
+## Risk Assessment by Use Case
+
+### LOW RISK: General Legal Research
+
+**Safe to use through any deployment:**
+
+```
+Example: "What does artikel 1365 of the Burgerlijk Wetboek Suriname say about unlawful acts?"
+```
+
+- No client identity involved
+- No case-specific facts
+- Publicly available legal information
+
+### MEDIUM RISK: Anonymized Queries
+
+**Use with caution:**
+
+```
+Example: "What are the penalties for corruptie under Surinamese criminal law?"
+```
+
+- Query pattern may reveal the nature of a matter you are working on
+- Anthropic/Vercel logs may link queries to your API key
+
+### HIGH RISK: Client-Specific Queries
+
+**DO NOT USE through cloud AI services:**
+
+- Remove ALL identifying details
+- Use the local npm package with a self-hosted LLM
+- Or consult official sources (dna.sr, Staatsblad) directly
+
+---
+
+## Data Collection by This Tool
+
+### What This Tool Collects
+
+**Nothing.** This Tool:
+
+- Does NOT log queries
+- Does NOT store user data
+- Does NOT track usage
+- Does NOT use analytics
+- Does NOT set cookies
+
+The database is read-only. No user data is written to disk.
+
+### What Third Parties May Collect
+
+- **Anthropic** (if using Claude): Subject to [Anthropic Privacy Policy](https://www.anthropic.com/legal/privacy)
+- **Vercel** (if using remote endpoint): Subject to [Vercel Privacy Policy](https://vercel.com/legal/privacy-policy)
+
+---
+
+## Recommendations
+
+### For Solo Practitioners / Small Firms (Individuele Advocaten / Kleine Kantoren)
+
+1. Use local npm package for maximum privacy
+2. General research: Cloud AI is acceptable for non-client queries
+3. Client matters: Consult official Staatsblad publications and qualified local counsel
+
+### For Large Firms / Corporate Legal (Grote Kantoren / Juridische Afdelingen)
+
+1. Negotiate Data Processing Agreements with AI service providers before any client data is transmitted
+2. Consider on-premise deployment with self-hosted LLM
+3. Train staff on safe vs. unsafe query patterns
+
+### For Government / Public Sector (Overheid / Publieke Sector)
+
+1. Use self-hosted deployment, no external APIs
+2. Follow Surinamese government IT security requirements
+3. Air-gapped option available for sensitive matters
+
+---
+
+## Questions and Support
+
+- **Privacy Questions**: Open issue on [GitHub](https://github.com/Ansvar-Systems/surinamese-law-mcp/issues)
+- **Anthropic Privacy**: Contact privacy@anthropic.com
+- **SOA Guidance**: Consult the Surinaamse Orde van Advocaten for professional conduct guidance
+
+---
+
+**Last Updated**: 2026-03-06
+**Tool Version**: 1.0.0
