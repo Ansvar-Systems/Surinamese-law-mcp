@@ -1,5 +1,5 @@
 /**
- * Golden contract tests for Dominican Republic Law MCP.
+ * Golden contract tests for Suriname Law MCP.
  *
  * Boots a real MCP server in-process (via InMemoryTransport) and verifies
  * tool outputs against the golden-tests.json fixture file.
@@ -150,7 +150,7 @@ let db: InstanceType<typeof Database>;
 describe(`Contract tests: ${fixture.mcp_name}`, () => {
   beforeAll(async () => {
     const dbPath =
-      process.env['KENYA_LAW_DB_PATH'] ?? join(__dirname, '..', '..', 'data', 'database.db');
+      process.env['SR_LAW_DB_PATH'] ?? join(__dirname, '..', '..', 'data', 'database.db');
     // Clean up stale lock dir and WAL files (WASM SQLite can't handle WAL mode)
     try { rmSync(dbPath + '.lock', { recursive: true, force: true }); } catch { /* ignore */ }
     try { rmSync(dbPath + '-wal', { force: true }); } catch { /* ignore */ }
@@ -159,7 +159,7 @@ describe(`Contract tests: ${fixture.mcp_name}`, () => {
     db.pragma('foreign_keys = ON');
 
     const server = new Server(
-      { name: 'kenya-law-test', version: '0.0.0' },
+      { name: 'surinamese-law-test', version: '0.0.0' },
       { capabilities: { tools: {} } },
     );
     registerTools(server, db);

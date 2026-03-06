@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 
 /**
- * Dominican Republic Law MCP Server — stdio entry point.
+ * Suriname Law MCP Server — stdio entry point.
  *
- * Provides Dominican legislation search via Model Context Protocol.
+ * Provides Surinamese legislation search via Model Context Protocol.
  */
 
 import { Server } from '@modelcontextprotocol/sdk/server/index.js';
