@@ -8,76 +8,90 @@ This software (the "Tool") is provided for **informational and research purposes
 
 ### What This Means
 
-- **No Attorney-Client Relationship**: Use of this Tool does not create an attorney-client relationship
+- **No Attorney-Client Relationship**: Use of this Tool does not create an attorney-client relationship (lastgeving / mandaat) between the user and any party
 - **No Professional Responsibility**: The authors and contributors assume no professional responsibility for decisions made based on information from this Tool
-- **Verification Required**: ALL legal information, citations, and conclusions must be independently verified with official sources and qualified legal professionals before being relied upon
+- **Verification Required**: ALL legal information, citations, and conclusions must be independently verified with official Surinamese sources and qualified legal professionals before being relied upon
 
 ## Professional Use Warnings
 
 ### For Legal Professionals
 
-If you are an advocaat (attorney), legal researcher, or other legal professional in Suriname:
+If you are an advocaat, legal researcher, notaris, or other legal professional practising in Suriname or advising on Surinamese law:
 
-- **Liability Risk**: Relying on unverified information from this Tool in professional legal work may constitute professional negligence (beroepsfout)
-- **Professional Obligations**: You remain solely responsible for verifying all citations, statutes, and legal positions before advising clients or filing documents
-- **Professional Rules**: Members of the **Surinaamse Orde van Advocaten (SOA)** must comply with applicable professional conduct rules when using AI tools
-- **Client Disclosure**: Consider whether professional ethics rules require disclosing AI tool use to clients
+- **Malpractice Risk**: Relying on unverified information from this Tool in professional legal work may constitute professional negligence and expose you to disciplinary and civil liability
+- **Professional Obligations**: You remain solely responsible for verifying all citations, statutes, and legal positions before advising clients or preparing legal documents
+- **Bar Rules**: Members of the **Balie van Advocaten in Suriname** must comply with applicable professional conduct rules when using AI-assisted legal research tools. The duty of competence (vakbekwaamheid) requires independent verification of any AI-generated output
+- **Client Disclosure**: Consider whether your professional ethics obligations require disclosing AI tool use to clients, particularly where automated methods could affect the quality of advice
 
 ### Duty of Independent Verification
 
-**YOU MUST VERIFY EVERYTHING.** Do not cite, quote, or rely on any provision, case law, or legal interpretation from this Tool without:
+**YOU MUST VERIFY EVERYTHING.** Do not cite, quote, or rely on any provision, regulation, or legal interpretation from this Tool without:
 
-1. Checking the official source (dna.sr — De Nationale Assemblee van Suriname, or the Official Gazette, Staatsblad van de Republiek Suriname)
-2. Verifying the provision is currently in force (van kracht) and has not been amended (gewijzigd) or repealed (ingetrokken)
-3. Reading the full context of cited provisions
-4. Consulting relevant case law and authoritative commentary for interpretation
-5. Considering how recent legal developments may affect the matter
+1. Checking the official text in the **Staatsblad van Suriname** (official gazette), published at gov.sr or the official print edition
+2. Confirming the provision is currently in force and has not been amended (gewijzigd) or repealed (ingetrokken)
+3. Reading the full context of cited provisions — article-level excerpts may omit qualifications and exceptions
+4. Checking whether subsequent implementing regulations (uitvoeringsbesluiten) or ministerial decisions (ministeriële beschikkingen) affect the provision's application
+5. Consulting any available parliamentary materials (handelingen) for interpretation of ambiguous provisions
+6. Considering how court decisions of the Kantonrechter, Arrondissementsrechtbank, or Hof van Justitie may affect interpretation
 
 ## Data Authority and Limitations
 
 ### Source Authority
 
-This Tool aggregates data from official Surinamese legal databases. However:
+This Tool aggregates data from Surinamese legislative sources. However, the authoritative hierarchy for Surinamese law is:
 
 | Source Type | Authority Level | Use Case |
 |------------|----------------|----------|
-| **Staatsblad van de Republiek Suriname** | Authoritative | Official gazette, promulgated legislation (primary reference) |
-| **dna.sr (De Nationale Assemblee)** | Authoritative | Draft and enacted legislation |
-| **Community/open-data sources** | Supplementary | Cross-references, metadata (verify independently) |
+| **Staatsblad van Suriname** | Authoritative | All primary legislation — only source with legal force |
+| **gov.sr official publications** | Official | Government announcements, ministerial decisions |
+| **This Tool's database** | Research aid only | Preliminary research — MUST be verified against primary sources |
+| **Community / open-data compilations** | Supplementary | Cross-references only — verify independently |
 
-**CRITICAL**: Community-maintained resources are **NOT** official government publications. While generally reliable, they may contain transcription errors, outdated information, or incomplete coverage.
+**CRITICAL**: Suriname does **NOT** have a comprehensive, publicly accessible digital legal database comparable to Austria's RIS or the EU's EUR-Lex. The **Staatsblad van Suriname** (printed and selectively digitised) is the sole authoritative source for enacted legislation. Absence of a provision from this Tool's database does not mean the provision does not exist.
 
-### Commercial Legal Databases
+### No Dedicated Official Digital Portal
 
-For professional legal work, **always cross-check with authoritative sources** such as:
+Unlike many jurisdictions, Suriname does not operate a government-maintained consolidated legislation database with full-text search. This means:
 
-- Official Staatsblad publications, dna.sr legislative archive, and qualified Surinamese legal counsel
+- Consolidated text of statutes may differ from the official Staatsblad if amending laws have not been correctly incorporated
+- This Tool's database represents a best-effort compilation — it is not an official consolidated text
+- Official consolidated texts must be obtained from the Ministry of Justice and Police (Ministerie van Justitie en Politie) or through the Staatsblad archive
 
-These primary sources provide the authoritative text of Surinamese law that this Tool **cannot** guarantee to replicate accurately.
+### Commercial and Professional Resources
+
+For professional legal work on Surinamese law:
+
+- Obtain official Staatsblad editions from the government printing office (Staatsdrukkerij)
+- Contact the Balie van Advocaten in Suriname for practitioner resources and referrals
+- Consult legal academics at the **Anton de Kom Universiteit van Suriname** (Faculteit der Rechtsgeleerdheid) for interpretive guidance on contested provisions
 
 ## Currency and Staleness
 
 ### No Real-Time Updates
 
-- Database updates are **manual** and may lag official publications by **weeks or months**
-- Surinamese law changes through wetgeving (legislation), landsbesluiten (national decrees), and ministeriele beschikkingen (ministerial decisions)
-- **Last-updated timestamps** in tool responses indicate data age, but should be treated as unreliable
+- Database updates are **manual** and may lag official Staatsblad publications by **weeks or months**
+- Surinamese law changes through new wetten (acts), staatsbesluiten (state decrees), and ministerielle beschikkingen
+- Amendments may be published without advance notice and take effect immediately on publication
+- **Last-updated timestamps** in tool responses indicate data age, but should be treated with caution
 
 ### Staleness Warnings
 
-The Tool includes staleness warnings when data is >30 days old. **These warnings are not exhaustive**:
+The Tool includes staleness warnings when data is more than 30 days old. **These warnings are not exhaustive:**
 
 - Even "fresh" data may be outdated if recent amendments were published in the Staatsblad
 - Staleness warnings do not guarantee completeness or accuracy
-- Always check official sources for the current legal position (actuele rechtspositie)
+- Always check the current Staatsblad for the current legal position (huidige rechtstoestand)
 
 ### Amendments and Repeals
 
-- A provision marked "in force" may have been:
-  - Amended (gewijzigd) after the last database update
-  - Repealed (ingetrokken) but not yet removed from the database
-  - Subject to transitional provisions (overgangsbepalingen) affecting its applicability
-- The Tool does **NOT** automatically track amendments in real-time
+A provision marked "in force" may have been:
+
+- Amended (gewijzigd) after the last database update
+- Repealed (ingetrokken) but not yet removed from the database
+- Subject to transitional provisions (overgangsbepalingen) affecting its applicability
+- Suspended by decree without formal amendment
+
+The Tool does **NOT** automatically track amendments in real-time.
 
 ## Coverage Gaps
 
@@ -85,20 +99,22 @@ The Tool includes staleness warnings when data is >30 days old. **These warnings
 
 This Tool does **NOT** include:
 
-1. **Complete case law** — Coverage of the Hof van Justitie van Suriname and lower court decisions is limited; do not rely solely on this for case law research
-2. **Historical statute versions** — Limited availability of historical provision wording
-3. **Legal commentary** — No editorial annotations, academic commentary, or practice guides
-4. **Unpublished decisions** — Administrative rulings and regulatory decisions largely absent
-5. **Full legislative history** — Limited coverage of parliamentary materials and explanatory memoranda
-6. **Customary law** — Maroon and indigenous customary law is not covered
+1. **Complete case law** — Decisions of the Hof van Justitie van Suriname, Arrondissementsrechtbank Paramaribo, and other courts are largely absent; do not rely solely on this Tool for case law research
+2. **Historical statute versions** — Limited availability of historical provision wording before a given compilation date
+3. **Legal commentary** — No editorial annotations, academic commentary from the Faculteit der Rechtsgeleerdheid, or practice guides
+4. **Unpublished administrative decisions** — Ministerial beschikkingen and internal administrative rulings may not be captured
+5. **Full legislative history** — Parliamentary deliberations and explanatory memoranda (memories van toelichting) are largely absent
+6. **Surinamese customary law** — Where customary law (gewoonterecht) or indigenous community rules apply, this Tool provides no coverage
+7. **Treaties and international obligations** — Suriname's treaty obligations and their domestic implementation may not be fully captured
+8. **Recent legislation** — A lag between Staatsblad publication and database ingestion means very recent enactments may be absent
 
 ### Impact on Professional Use
 
 These gaps mean:
 
-- **Incomplete Legal Research**: Tool results are inherently incomplete and may miss critical authorities
-- **Context Missing**: Without commentary and legislative materials, interpretation may be incorrect
-- **Customary Law Blind Spots**: Cannot assess customary or indigenous law applicable in interior regions
+- **Incomplete Legal Research**: Tool results are inherently partial and may miss critical authorities
+- **Interpretation Risks**: Without commentary and legislative materials, interpretation of ambiguous Dutch-language provisions may be incorrect
+- **Cross-Border Gaps**: Cannot fully assess how Caribbean Community (CARICOM) obligations or treaties with the Kingdom of the Netherlands interact with domestic law
 
 ## No Warranties
 
@@ -107,19 +123,20 @@ These gaps mean:
 Per the Apache 2.0 license (see [LICENSE](LICENSE)):
 
 - **NO WARRANTY OF ACCURACY**: Data may contain errors, omissions, or outdated information
-- **NO WARRANTY OF COMPLETENESS**: Searches may miss relevant provisions or cases
+- **NO WARRANTY OF COMPLETENESS**: Searches may miss relevant provisions or statutes
 - **NO WARRANTY OF FITNESS**: Not warranted as fit for professional legal use
-- **NO WARRANTY OF NON-INFRINGEMENT**: No guarantee that use complies with professional rules or regulations
+- **NO WARRANTY OF NON-INFRINGEMENT**: No guarantee that use complies with professional rules
 
 ### Limitation of Liability
 
-- Authors and contributors are **NOT LIABLE** for damages arising from use of this Tool
-- This includes but is not limited to:
-  - Professional liability claims (beroepsaansprakelijkheid)
-  - Lost cases or adverse judgments
-  - Client harm from erroneous advice
-  - Regulatory sanctions from the SOA or other authorities
-  - Reputational damage
+Authors and contributors are **NOT LIABLE** for damages arising from use of this Tool, including but not limited to:
+
+- Professional negligence claims arising from reliance on Tool output
+- Lost cases or adverse judgments
+- Client harm from erroneous advice
+- Disciplinary proceedings before the Balie van Advocaten in Suriname
+- Regulatory sanctions from Surinamese authorities
+- Financial or reputational damage of any kind
 
 ## AI-Generated Content
 
@@ -128,54 +145,51 @@ This Tool uses **algorithmic search and ranking** that may:
 - Return irrelevant or misleading results
 - Miss critical provisions
 - Rank less relevant provisions higher than more relevant ones
-- Make errors in parsing, citation formatting, or cross-referencing
+- Make errors in parsing Dutch-language legal text, citation formatting, or cross-referencing
+- Fail to capture legal nuance in Dutch civil law terminology as applied in Suriname
 
 **Human review is MANDATORY** before relying on any AI-generated search results or analysis.
 
-## AI Transparency
+### Language Considerations
 
-This Tool uses AI/algorithmic methods for search and ranking:
-
-- **AI Disclosure**: Users are notified that results are AI-generated and require verification
-- **Verify AI Output**: Always verify AI-generated citations and search results
-- **Human Oversight**: Do not use Tool output in professional legal work without human review
-- **Professional Rules**: Comply with SOA professional conduct rules regarding AI tool use
+Surinamese legislation is primarily in **Dutch** (Nederlands). This Tool operates on Dutch-language source texts. Users who are not proficient in Dutch legal terminology (juridisch Nederlands) face additional risk of misreading or misapplying provisions. Always have Dutch-language legal text reviewed by a qualified Dutch-speaking legal professional.
 
 ## Professional Ethics Considerations
 
-### Confidentiality (Geheimhoudingsplicht)
+### Geheimhoudingsplicht (Duty of Confidentiality)
 
-- See [PRIVACY.md](PRIVACY.md) for detailed confidentiality considerations
-- **Query Data**: Queries made through the Claude API may be logged by Anthropic (subject to their privacy policy)
-- **Client Information**: Do not include client names, case-specific details, or confidential information in queries
-- **Sensitive Matters**: For privileged legal matters, consider on-premise deployment
+Advocaten in Suriname are bound by a duty of confidentiality (geheimhoudingsplicht) under the **Advocatenwet van Suriname**. This encompasses all information received in the course of client representation.
+
+- Client communications and case details are privileged
+- Including client-identifying information in queries transmitted to cloud AI services may breach this duty
+- See [PRIVACY.md](PRIVACY.md) for detailed guidance on how to structure queries to protect confidentiality
 
 ### Competence and Diligence
 
 Using this Tool does not reduce your professional obligations to:
 
 - Exercise independent legal judgment
-- Conduct thorough legal research using authoritative sources
-- Stay current with legal developments
-- Provide competent representation
+- Conduct thorough legal research using authoritative Staatsblad sources
+- Stay current with Surinamese legal developments
+- Provide competent and diligent client representation
 
 ## Recommended Workflow for Professional Use
 
-1. **Initial Research**: Use Tool for preliminary research and hypothesis generation
-2. **Official Verification**: Cross-check ALL results with official sources (dna.sr, Staatsblad)
-3. **Primary Sources**: Obtain official gazette publications for authoritative legislative text
-4. **Professional Judgment**: Apply independent legal analysis and professional judgment
-5. **Document Sources**: Cite official sources in legal work, not this Tool
-6. **Update Check**: Before finalizing legal work, check for recent amendments and decisions
+1. **Initial Research**: Use this Tool for preliminary hypothesis generation and identifying potentially relevant legislation
+2. **Official Verification**: Cross-check ALL results against the official Staatsblad van Suriname
+3. **Court Decisions**: Research relevant decisions of the Hof van Justitie van Suriname separately through official court records
+4. **Professional Judgment**: Apply independent legal analysis and professional judgment — this Tool is a starting point, not a conclusion
+5. **Document Sources**: Cite the Staatsblad (with edition, date, and page reference) in legal work, not this Tool
+6. **Update Check**: Before finalising legal work, verify that no recent Staatsblad publication has amended or repealed the relevant provisions
 
 ## Changes to This Disclaimer
 
-This disclaimer may be updated as the Tool evolves or legal/regulatory requirements change. Check the [GitHub repository](https://github.com/Ansvar-Systems/surinamese-law-mcp) for the current version.
+This disclaimer may be updated as the Tool evolves or requirements change. Check the [GitHub repository](https://github.com/Ansvar-Systems/Surinamese-law-mcp) for the current version.
 
 ## Questions?
 
-For questions about this disclaimer or the Tool's limitations, please open an issue on GitHub:
-https://github.com/Ansvar-Systems/surinamese-law-mcp/issues
+For questions about this disclaimer or the Tool's limitations, open an issue on GitHub:
+https://github.com/Ansvar-Systems/Surinamese-law-mcp/issues
 
 ---
 
@@ -185,15 +199,15 @@ https://github.com/Ansvar-Systems/surinamese-law-mcp/issues
 
 ## Summary: What You Must Do
 
-- **ALWAYS VERIFY** all legal information with official sources (dna.sr, Staatsblad)
+- **ALWAYS VERIFY** all legal information against the official Staatsblad van Suriname
 - **NEVER RELY** on this Tool as sole basis for legal advice or professional work
-- **UNDERSTAND** this is a research aid, not a substitute for authoritative primary sources
-- **ACKNOWLEDGE** data may be incomplete, outdated, or incorrect
-- **COMPLY** with SOA (Surinaamse Orde van Advocaten) professional ethics rules regarding AI tool use and client confidentiality
-- **DISCLOSE** to clients if required by professional rules
+- **UNDERSTAND** this is a research aid, not a substitute for official Surinamese legal sources
+- **ACKNOWLEDGE** data may be incomplete, outdated, or incorrect — particularly given the limited digital infrastructure for Surinamese law
+- **COMPLY** with Balie van Advocaten in Suriname professional conduct rules regarding AI tool use
+- **PROTECT** client confidentiality (geheimhoudingsplicht) — do not include client details in queries
 
 - **DO NOT** cite this Tool as an authority in legal documents
-- **DO NOT** use in professional legal work without independent verification
-- **DO NOT** rely on staleness warnings as guarantee of currency
-- **DO NOT** assume coverage is complete or comprehensive
-- **DO NOT** include confidential client information in queries
+- **DO NOT** use in professional legal work without independent verification against the Staatsblad
+- **DO NOT** treat the absence of a provision from this Tool as evidence the provision does not exist
+- **DO NOT** assume coverage is complete — Suriname has no comprehensive public digital legal database
+- **DO NOT** include confidential client information in queries transmitted to cloud AI services
