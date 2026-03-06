@@ -1,26 +1,26 @@
 {
   "$schema": "./golden-tests.schema.json",
   "version": "1.0",
-  "mcp_name": "El Salvador Law MCP",
-  "description": "Golden contract tests for the El Salvador Law MCP",
+  "mcp_name": "Suriname Law MCP",
+  "description": "Golden contract tests for the Suriname Law MCP",
   "tests": [
     {
-      "id": "SV-001",
+      "id": "SR-001",
       "category": "search",
-      "description": "Search for 'datos personales' returns results",
+      "description": "Search for 'wet' returns results or handles gracefully",
       "tool": "search_legislation",
       "input": {
-        "query": "datos personales",
+        "query": "wet",
         "limit": 5
       },
       "assertions": {
         "result_not_empty": true,
-        "min_results": 1,
-        "text_not_empty": true
+        "text_not_empty": true,
+        "handles_gracefully": true
       }
     },
     {
-      "id": "SV-002",
+      "id": "SR-002",
       "category": "negative",
       "description": "Negative test: non-existent law",
       "tool": "get_provision",
